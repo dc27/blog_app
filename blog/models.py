@@ -20,6 +20,24 @@ class Article(BaseModel):
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
+        cur.execute("SELECT * FROM articles WHERE title = ?", (article_id, ))
+        
+        record = cur.fetchone()
+
+        if record is None:
+            raise NotFound
+        
+        article = cls(**record)
+        con.close()
+
+        return article
+    
+    @classmethod
+    def get_by_title(cls, title: str):
+        con = sqlite3.connect(os.get_env("DATABASE_NAME", "database.db"))
+        con.row_factory = sqlite3.Row
+
+        cur = con.cursor()
         cur.execute("SELECT * FROM articles WHERE title = ?", (title, ))
         
         record = cur.fetchone()
