@@ -16,11 +16,11 @@ class Article(BaseModel):
 
     @classmethod
     def get_by_id(cls, article_id: str):
-        con = sqlite3.connect(os.get_env("DATABASE_NAME", "database.db"))
+        con = sqlite3.connect(os.getenv("DATABASE_NAME", "database.db"))
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
-        cur.execute("SELECT * FROM articles WHERE title = ?", (article_id, ))
+        cur.execute("SELECT * FROM articles WHERE id = ?", (article_id, ))
         
         record = cur.fetchone()
 
@@ -34,7 +34,7 @@ class Article(BaseModel):
     
     @classmethod
     def get_by_title(cls, title: str):
-        con = sqlite3.connect(os.get_env("DATABASE_NAME", "database.db"))
+        con = sqlite3.connect(os.getenv("DATABASE_NAME", "database.db"))
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()

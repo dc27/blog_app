@@ -21,7 +21,7 @@ def test_create_article():
     db_article = Article.get_by_id(article.id)
 
     assert db_article.id == article.id
-    assert db_article.authoer == article.author
+    assert db_article.author == article.author
     assert db_article.title == article.title
     assert db_article.content == article.content
 
